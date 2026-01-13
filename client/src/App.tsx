@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Outlet } from "react-router";
+import { Button } from '@/components/ui/button';
+import { Outlet } from 'react-router';
 
 function App() {
   return (
