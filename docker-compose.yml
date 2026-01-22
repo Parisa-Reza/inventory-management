@@ -8,18 +8,13 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=password
-    # volumes:
-    #   - mongo_data:/data/db
-    #   - mongo_config:/data/configdb
+    volumes:
+      - ./.data/mongo_data:/data/db
+      - ./.data/mongo_config:/data/configdb
     networks:
       - ivm-network
-
-volumes:
-  mongo_data:
-  mongo_config:
 
 networks:
   ivm-network:
     driver: bridge
-
 
