@@ -8,6 +8,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 
 export const getUserById = async (req: Request, res: Response) => {
-  const user = await userService.getUserById(req.params.id);
+  const user = await userService.getUserById(req.params.id as string);
   res.status(200).json(user);
 }

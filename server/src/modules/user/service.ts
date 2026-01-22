@@ -35,5 +35,5 @@ export const verifyPassword = async (user: User, password: string) => {
 
 
 export const getUserById = async (id: string) => {
-  return UserModel.findById(id).exec(); // here exec() returns a Promise
+  return UserModel.findById(id).exec(); 
 }
