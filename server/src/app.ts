@@ -41,11 +41,6 @@ app.use(errorHandler);
 
 const port = envConfig.PORT;
 
-const startServer = async () => {
-  await connectDB();
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-  });
-};
-
-startServer();
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
