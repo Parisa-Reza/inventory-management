@@ -27,7 +27,16 @@ export const createUser = async (
 
 export const getUsers = async () => {
   return UserModel.find();
-}
+};
+
+export const updateUserById = async (
+  _id: string,
+  newDataPayload: z.infer<typeof CreateUserSchema>,
+) => {
+  return UserModel.findByIdAndUpdate(_id, newDataPayload, {
+    new: true,
+  });
+};
 
 export const findUserByEmail = async (email: string) => {
   return UserModel.findOne({ email }).select(
