@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { CreateUserSchema } from '@/schemas';
 import { UserModel } from './model';
 import { envConfig } from '@/config';
-import { User } from '@/types';
+import { UpdateUser, User } from '@/types';
 
 export const getHashedPassword = async (password: string) =>
   bcrypt.hash(password, envConfig.BCRYPT_SALT_ROUNDS);
@@ -23,6 +23,63 @@ export const createUser = async (
   });
 
   return newUser;
+};
+
+export const getUsers = async () => {
+  return await UserModel.find();
+};
+
+export const updateUserById = async (
+  _id: string,
+  updatedUserPayload: UpdateUser,
+) => {
+  const user = await UserModel.findById(_id);
+  if (!user) return false;
+
+  const payload = { ...updatedUserPayload };
+
+  if (payload.password) {
+    payload.passwordHash = await getHashedPassword(payload.password);
+    delete payload.password;
+  }
+
+  return await UserModel.findByIdAndUpdate(_id, payload, {
+    new: true,
+  });
+};
+
+export const deleteUserById = async (_id: string) => {
+  const user = await UserModel.findById(_id);
+
+  if (!user) return false;
+
+  return UserModel.findByIdAndUpdate(
+    _id,
+    {
+      deleted: true,
+      deletedAt: new Date().toISOString(),
+    },
+    {
+      new: true,
+    },
+  );
+};
+
+export const restoreUser = async (_id: string) => {
+  const user = await UserModel.findById(_id);
+
+  if (!user) return false;
+
+  return UserModel.findByIdAndUpdate(
+    _id,
+    {
+      deleted: false,
+      deletedAt: null,
+    },
+    {
+      new: true,
+    },
+  );
 };
 
 export const findUserByEmail = async (email: string) => {

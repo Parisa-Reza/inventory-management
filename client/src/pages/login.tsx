@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
+
+import http from '@/lib/http';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -7,13 +8,17 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    axios
-      .post('http://localhost:5692/auth/login/password', {
-        username: email,
-        password,
-      })
+    http
+      .post(
+        '/auth/login/password',
+        {
+          username: email,
+          password,
+        },
+        { withCredentials: true },
+      )
       .then((response) => {
-        console.log('Login successful:', response.data);
+        localStorage.setItem('inv-user', JSON.stringify(response.data.user));
         window.location.href = '/';
       })
       .catch((error) => {

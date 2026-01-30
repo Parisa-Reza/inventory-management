@@ -12,19 +12,9 @@ adminUserRouter.post(
   validateRequestBody(CreateUserSchema),
   userController.createUser,
 );
-adminUserRouter.get('/', (_req: Request, _res: Response) => {
-  throw new NotImplementedError();
-});
-
+adminUserRouter.get('/', userController.getUsers);
 adminUserRouter.get('/:id', userController.getUserById);
-
-adminUserRouter.put('/:id', (_req: Request, _res: Response) => {
-  throw new NotImplementedError();
-});
-adminUserRouter.delete('/:id', (_req: Request, _res: Response) => {
-  throw new NotImplementedError();
-});
-adminUserRouter.patch('/:id/restore', (_req: Request, _res: Response) => {
-  throw new NotImplementedError();
-});
+adminUserRouter.put('/:id', userController.updateUserById);
+adminUserRouter.delete('/:id', userController.deleteUserById);
+adminUserRouter.patch('/:id/restore', userController.restoreUser);
 export default adminUserRouter;
