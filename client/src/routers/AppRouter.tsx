@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router/dom';
 
 import { Layout, Login } from '@/pages';
 import { InstancePage } from '@/pages/instances';
+import Dashboard from '@/pages/instances/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <div>dashboard page</div>,
+        element: <Dashboard />,
       },
       {
         path: 'instances',
